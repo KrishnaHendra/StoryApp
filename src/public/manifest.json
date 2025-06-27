@@ -1,0 +1,56 @@
+{
+    "name": "Story App Krishna",
+    "short_name": "Story App Krishna",
+    "description": "A place to share stories and spark inspiration.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "images/icons/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Write a Story",
+            "short_name": "Write a Story",
+            "description": "Write a New Story",
+            "url": "/#/tambah"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "images/screenshots/detail.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "images/screenshots/bookmark.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "images/screenshots/addStory.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "images/screenshots/login.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "images/screenshots/register.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        },
+        {
+            "src": "images/screenshots/mobile.png",
+            "sizes": "361x765",
+            "type": "image/png"
+        }
+    ]
+}

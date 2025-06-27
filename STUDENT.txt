@@ -1,0 +1,3 @@
+NAME=Krishna Hendra Wijaya
+APP_URL=https://delicate-elf-6a734e.netlify.app
+MAP_SERVICE_API_KEY=w4EHnRIAm3nAi4wjyNXy

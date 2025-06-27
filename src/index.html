@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A place to share stories and spark inspiration." />
+    <meta name="theme-color" content="#000000" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <title>Story App Krishna</title>
+    <link rel="manifest" href="manifest.json" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+
+    <header>
+      <div class="main-header container">
+        <a class="brand-name" href="#/">Story App Krishna</a>
+
+        <nav id="navigation-drawer" class="navigation-drawer" aria-label="Main navigation">
+          <ul id="nav-list" class="nav-list">
+            <li id="push-notification-tools" class="push-notification-tools"></li>
+            <li><a href="#/">Home</a></li>
+            <li><a href="#/bookmark">Bookmarks</a></li>
+            <li><a href="#/tambah">Write a Story</a></li>
+            <li><a href="#/logout" class="logout-button">Log Out</a></li>
+          </ul>
+        </nav>
+
+        <button id="drawer-button" class="drawer-button" aria-label="Toggle navigation menu">☰</button>
+      </div>
+    </header>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', async () => {
+          try {
+            const registrations = await navigator.serviceWorker.getRegistrations();
+            for (const registration of registrations) {
+              await registration.unregister();
+            }
+
+            const registration = await navigator.serviceWorker.register('./sw.bundle.js');
+            console.log('Service Worker registered successfully:', registration.scope);
+          } catch (error) {
+            console.error('Service Worker registration failed:', error);
+          }
+        });
+      }
+    </script>
+
+    <main id="main-content" class="main-content"></main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <h3>Story App Krishna</h3>
+          <p>A place to share stories and spark inspiration.</p>
+        </div>
+
+        <div class="footer-links">
+          <a href="#/">Home</a>
+          <a href="#/bookmark">Bookmarks</a>
+          <a href="#/tambah">Write a Story</a>
+          <a href="#/logout">Log Out</a>
+        </div>
+
+        <div class="footer-social">
+          <a href="https://twitter.com" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://instagram.com/krisnahendra_" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Story App by Krishna Hendra Wijaya. Your story can inspire the world.</p>
+      </div>
+    </footer>
+  </body>
+</html>
