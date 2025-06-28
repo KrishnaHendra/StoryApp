@@ -1,5 +1,5 @@
-const CACHE_NAME = 'krishna-story-appv1';
-const BASE_PATH = '/Story-App-Krishna';
+const CACHE_NAME = 'krishna-story-app-v1';
+const BASE_PATH = '/Story-App-Krishna/';
 
 const urlsToCache = [
   `${BASE_PATH}/`,
@@ -100,7 +100,7 @@ self.addEventListener('push', event => {
     data: {
       dateOfArrival: Date.now(),
       primaryKey: 1,
-      url: '/Story-App-Krishna',
+      url: '/Story-App-Krishna/',
     },
     actions: [
       {
