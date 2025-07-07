@@ -74,6 +74,15 @@ export default class BookmarkPage {
       const imageSrc =
         report.photoBase64 || report.photoUrl || 'images/placeholder.jpg';
 
+      const createdAtFormatted = new Date(createdAt).toLocaleDateString(
+        'id-ID',
+        {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }
+      );
+
       container.innerHTML += `
         <div tabindex="0" class="report-item" data-reportid="${id}">
           <img class="report-item__image" src="${imageSrc}" alt="${name}">
@@ -82,21 +91,14 @@ export default class BookmarkPage {
               <h2 class="report-item__title" style="margin-bottom: 0;">${name}</h2>
             </div>
             <div class="report-item__description" style="margin-bottom: 0;">${description}</div>
-            <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin: 10px 0;">
+
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 10px; margin-bottom: 25px;">
               <tr>
-                <td colspan="3" style="text-align: center; font-weight: bold; border: 1px solid black; background: #f5f5f5; padding: 5px;">
-                  Location
-                </td>
-              </tr>
-              <tr>
-                <td style="border: 1px solid black; padding: 5px;">Latitude</td>
-                <td style="border: 1px solid black; padding: 5px;">${lat}</td>
-              </tr>
-              <tr>
-                <td style="border: 1px solid black; padding: 5px;">Longitude</td>
-                <td style="border: 1px solid black; padding: 5px;">${lon}</td>
+                <td style="border: 1px solid black; padding: 5px; background: #f5f5f5;">Date created</td>
+                <td style="border: 1px solid black; padding: 5px; text-align: center;">${createdAtFormatted}</td>
               </tr>
             </table>
+
             <div class="report-item__actions" style="display: flex;">
               <button 
                 class="bookmark-button" 
@@ -109,6 +111,7 @@ export default class BookmarkPage {
                   box-sizing: border-box;
                   border: none;
                   cursor: pointer;
+                  font-size: 10px;
                 "
               >
                 <i class="fas fa-bookmark"></i> Remove from Bookmarks
@@ -128,6 +131,7 @@ export default class BookmarkPage {
                   text-decoration: none;
                   display: inline-block;
                   line-height: 1.5;
+                  font-size: 12px;
                 "
               >
                 Read More

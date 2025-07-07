@@ -1,5 +1,5 @@
-const CACHE_NAME = 'krishna-story-app-v1';
-const BASE_PATH = '/Story-App-Krishna/';
+const CACHE_NAME = 'dicoding-story-v1';
+const BASE_PATH = '/Dicoding-Story/';
 
 const urlsToCache = [
   `${BASE_PATH}/`,
@@ -93,24 +93,24 @@ self.addEventListener('fetch', event => {
 self.addEventListener('push', event => {
   let notificationData = {
     title: 'Story App Krishna',
-    body: 'A new story has just been published. Be the first to read it!',
+    body: 'Cerita baru telah ditambahkan',
     icon: `${BASE_PATH}/images/logo.png`,
     badge: `${BASE_PATH}/images/logo.png`,
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
       primaryKey: 1,
-      url: '/Story-App-Krishna/',
+      url: '/Dicoding-Story/',
     },
     actions: [
       {
         action: 'explore',
-        title: 'Read Now',
+        title: 'Lihat Cerita',
         icon: `${BASE_PATH}/images/logo.png`,
       },
       {
         action: 'close',
-        title: 'Dismiss',
+        title: 'Tutup',
         icon: `${BASE_PATH}/images/logo.png`,
       },
     ],

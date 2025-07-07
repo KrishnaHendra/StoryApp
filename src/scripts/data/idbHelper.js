@@ -1,4 +1,4 @@
-const DATABASE_NAME = 'story-app-krishna-db';
+const DATABASE_NAME = 'dicoding-story-app-db';
 const DATABASE_VERSION = 1;
 const OBJECT_STORE_NAME = 'bookmarks';
 

@@ -60,6 +60,15 @@ export default class HomePage {
 
     const html = stories
       .map((story, index) => {
+        const createdAtFormatted = new Date(story.createdAt).toLocaleDateString(
+          'id-ID',
+          {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }
+        );
+
         return `
       <div class="story-card">
         <img 
@@ -72,26 +81,13 @@ export default class HomePage {
         <div class="story-content">
           <h3 style="margin-bottom: 0;">${story.name}</h3>
           <p id="story-description">${story.description}</p>
+
           <table style="width: 100%; border-collapse: collapse; border: 1px solid black; margin-top: 10px;">
             <tr>
-              <td colspan="3" style="text-align: center; font-weight: bold; border: 1px solid black; background: #f5f5f5; padding: 5px;">
-                Location
-              </td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid black; padding: 5px;">Latitude</td>
-              <td style="border: 1px solid black; padding: 5px;">${
-                story.lat
-              }</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid black; padding: 5px;">Longitude</td>
-              <td style="border: 1px solid black; padding: 5px;">${
-                story.lon
-              }</td>
+              <td style="border: 1px solid black; padding: 5px; background: #f5f5f5;">Date created</td>
+              <td style="border: 1px solid black; padding: 5px; text-align: center;">${createdAtFormatted}</td>
             </tr>
           </table>
-
 
           <div 
             id="map-${index}" 

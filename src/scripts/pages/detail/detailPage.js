@@ -50,7 +50,7 @@ export default class DetailPage {
           style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin: 20px 0;"
         />
 
-        <p id="story-created-at" style="color: #666; font-size: 14px;"></p>
+        <p id="story-created-at" style="color: #666; font-size: 16px;"></p>
 
         <table style="width: 100%; border-collapse: collapse; margin-top: 16px; border: 1px solid #ccc;">
           <tr>
@@ -103,7 +103,6 @@ export default class DetailPage {
 
   async afterRender() {
     const storyId = parseActivePathname().id;
-    console.log(storyId);
 
     this.#presenter = new AppPresenter({
       view: this,
@@ -119,7 +118,9 @@ export default class DetailPage {
       this.storeFailed('Story data is missing');
       return;
     }
+
     this.#story = story;
+
     document.getElementById('story-id').innerHTML = `ID: ${story.id || 'N/A'}`;
     document.getElementById('story-name').innerHTML = `Nama: ${
       story.name || 'N/A'
@@ -128,15 +129,24 @@ export default class DetailPage {
       story.description || 'N/A'
     }`;
     document.getElementById('story-photo').src = story.photoUrl || '';
-    document.getElementById('story-created-at').innerHTML = `Tanggal: ${
-      story.createdAt ? new Date(story.createdAt).toLocaleString() : 'N/A'
-    }`;
-    document.getElementById('story-lat').innerHTML = `Lat: ${
-      story.lat || 'N/A'
-    }`;
-    document.getElementById('story-lon').innerHTML = `Lon: ${
-      story.lon || 'N/A'
-    }`;
+    document.getElementById('story-created-at').innerHTML =
+      `<b>Date created</b>: ${
+        story.createdAt ? new Date(story.createdAt).toLocaleString() : 'N/A'
+      }`;
+
+    const hasLocation =
+      story.lat != null &&
+      story.lon != null &&
+      story.lat !== '' &&
+      story.lon !== '';
+
+    if (hasLocation) {
+      document.getElementById('story-lat').innerHTML = `Lat: ${story.lat}`;
+      document.getElementById('story-lon').innerHTML = `Lon: ${story.lon}`;
+    } else {
+      document.querySelector('table').style.display = 'none';
+      document.getElementById('map').style.display = 'none';
+    }
   }
 
   async initialMap(lat, lon) {

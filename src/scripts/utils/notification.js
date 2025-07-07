@@ -26,12 +26,12 @@ export async function requestNotificationPermission() {
   const status = await Notification.requestPermission();
 
   if (status === 'denied') {
-    alert('Notification permission was denied.');
+    alert('Notification permission denied');
     return false;
   }
 
   if (status === 'default') {
-    alert('Notification permission was dismissed or ignored.');
+    alert('Notification permission is closed or ignored');
     return false;
   }
 
@@ -89,7 +89,7 @@ export async function subscribe() {
   }
 
   if (await isCurrentPushSubscriptionAvailable()) {
-    alert('You are already subscribed to push notifications.');
+    alert('Already subscribed to push notifications');
     return;
   }
 
@@ -110,9 +110,8 @@ export async function subscribe() {
       throw new Error('Push manager not supported');
     }
 
-    pushSubscription = await registration.pushManager.subscribe(
-      subscribeOptions
-    );
+    pushSubscription =
+      await registration.pushManager.subscribe(subscribeOptions);
     if (!pushSubscription) {
       throw new Error('Failed to create push subscription');
     }
@@ -171,7 +170,7 @@ export async function unsubscribe() {
     const pushSubscription = await registration.pushManager.getSubscription();
     if (!pushSubscription) {
       alert(
-        'Unable to unsubscribe from push notifications because you are not currently subscribed.'
+        'Cannot unsubscribe from push notifications because you have not subscribed before.'
       );
       return false;
     }
@@ -213,9 +212,7 @@ export async function initNotificationButton() {
     const button = pushNotificationTools.querySelector('.notification-button');
 
     if (button) {
-      button.className = `notification-button ${
-        isSubscribed ? 'subscribed' : ''
-      }`;
+      button.className = `notification-button ${isSubscribed ? 'subscribed' : ''}`;
       button.innerHTML = `
         <i class="fas ${isSubscribed ? 'fa-bell' : 'fa-bell-slash'}"></i>
         ${isSubscribed ? 'Nonactivate Notification' : 'Activate Notification'}
