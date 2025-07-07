@@ -224,61 +224,72 @@ export default class NewPage {
   }
 
   async initialMap() {
+    const DEFAULT_COORDS = [-6.175528, 106.827117]; // Jakarta
+
     this.#map = L.map('map', {
       zoomControl: true,
       doubleClickZoom: false,
+    });
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+    }).addTo(this.#map);
+
+    const initMapView = (lat, lng, label = 'Initial Location') => {
+      this.#map.setView([lat, lng], 13);
+      this.#marker = L.marker([lat, lng]).addTo(this.#map);
+
+      this.#marker
+        .bindPopup(
+          `<b>${label}</b><br>Latitude: ${lat.toFixed(6)}<br>Longitude: ${lng.toFixed(6)}`,
+          { autoClose: false, closeOnClick: false }
+        )
+        .openPopup();
+    };
+
+    this.#map.on('click', event => {
+      const { lat, lng } = event.latlng;
+
+      if (this.#marker) {
+        this.#marker.setLatLng([lat, lng]);
+      } else {
+        this.#marker = L.marker([lat, lng]).addTo(this.#map);
+      }
+
+      this.#map.closePopup();
+
+      this.#marker
+        .setPopupContent(
+          `<b>Selected Location</b><br>Latitude: ${lat.toFixed(6)}<br>Longitude: ${lng.toFixed(6)}`
+        )
+        .openPopup();
+
+      this.#form.elements.namedItem('latitude').value = lat.toFixed(6);
+      this.#form.elements.namedItem('longitude').value = lng.toFixed(6);
     });
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
-
-          this.#map.setView([latitude, longitude], 13);
-
-          L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-          }).addTo(this.#map);
-
-          this.#marker = L.marker([latitude, longitude]).addTo(this.#map);
-
-          this.#marker
-            .bindPopup(
-              `<b>Initial Location</b><br>Latitude: ${latitude.toFixed(
-                6
-              )}<br>Longitude: ${longitude.toFixed(6)}`,
-              { autoClose: false, closeOnClick: false }
-            )
-            .openPopup();
-
-          this.#map.on('click', event => {
-            const { lat, lng } = event.latlng;
-
-            if (this.#marker) {
-              this.#marker.setLatLng([lat, lng]);
-            } else {
-              this.#marker = L.marker([lat, lng]).addTo(this.#map);
-            }
-
-            this.#marker
-              .bindPopup(
-                `<b>Selected Location</b><br>Latitude: ${lat.toFixed(
-                  6
-                )}<br>Longitude: ${lng.toFixed(6)}`,
-                { autoClose: false, closeOnClick: false }
-              )
-              .openPopup();
-
-            this.#form.elements.namedItem('latitude').value = lat.toFixed(6);
-            this.#form.elements.namedItem('longitude').value = lng.toFixed(6);
-          });
+          initMapView(latitude, longitude);
         },
         error => {
-          console.error('Geolocation error: ', error);
+          console.warn('Geolocation error: ', error.message);
+          initMapView(
+            DEFAULT_COORDS[0],
+            DEFAULT_COORDS[1],
+            'Default Location (Jakarta)'
+          );
         }
       );
     } else {
       console.log('Geolocation is not supported by this browser.');
+      initMapView(
+        DEFAULT_COORDS[0],
+        DEFAULT_COORDS[1],
+        'Default Location (Jakarta)'
+      );
     }
   }
 
